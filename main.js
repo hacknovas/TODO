@@ -58,8 +58,7 @@ const getList = function (todoItems) {
         `<li class="list-group-item d-flex justify-content-between align-items-center">
           <span class="title" data-time="${item.addedAt}">${item.name}</span> 
           <span>
-              <a href="#" data-done><i class="bi ${iconClass} green"></i></a>
-              <a href="#" data-delete><i class="bi bi-x-circle red"></i></a>
+              <a href="#" data-delete><i class="bi bi-x-circle black"></i></a>
           </span>
         </li>`
       );
@@ -69,7 +68,7 @@ const getList = function (todoItems) {
     itemList.insertAdjacentHTML(
       "beforeend",
       `<li class="list-group-item d-flex justify-content-between align-items-center">
-        No record found.
+        No Items.
       </li>`
     );
   }

@@ -24,6 +24,14 @@ body::before {
     bottom: 0;
     right: 0;
     position: absolute;
-    z-index: -1;   
-  }
-  
+    z-index: -1;
+}
+
+.scrbox {
+    border: 1px solid rgb(238, 217, 217);
+    border-left: 0;
+    border-right: 0;
+    height: 400px;
+    width: 720px;
+    overflow-y: auto;
+}

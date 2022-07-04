@@ -17,7 +17,7 @@
             <img src="./download.png" width="30" height="30" class="d-inline-block align-top">
             ToDoList
         </a>
-        <b class="text-secondary">creatives.doni@gmail.com</b>
+        <b class="text-secondary badge">creatives.doni@gmail.com</b>
     </nav>
 
     <div class="container">
@@ -31,13 +31,17 @@
                     </div>
                 </form>
 
-                <ul class="nav nav-tabs">
-                    <li class="nav-item" data-type="all">
+                <!-- <ul class="nav nav-tabs" >
+                    <li class="nav-item"  data-type="all">
                         <a class="nav-link active">Todo(s)</a>
                     </li>
-                </ul>
+                </ul> -->
 
-                <div>
+                <h3>
+                    <span class="badge bg-white text-secondary">Todo(s)</span>
+                </h3>
+
+                <div class="border border-secondary border-bottom-0">
                     <ul class="list-group list-group-flush" id="itemList"></ul>
                     <input type="hidden" id="filterType" value="all">
                     <input type="hidden" id="citem" value="">

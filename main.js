@@ -2,8 +2,9 @@ const form = document.querySelector("#itemForm");
 const itemInput = document.querySelector("#itemInput");
 const itemList = document.querySelector("#itemList");
 const messageDiv = document.querySelector("#message");
-const clearButton = document.querySelector("#clearBtn");
 const filters = document.querySelectorAll(".nav-item");
+
+let TodosAll = [];
 
 const handleItem = function (itemData) {
   const items = document.querySelectorAll(".list-group-item");
@@ -17,41 +18,36 @@ const handleItem = function (itemData) {
           e.preventDefault();
           itemList.removeChild(item);
           removeItem(item);
-          setLocalStorage(todoItems);
-          return todoItems.filter((item) => item != itemData);
+          if (TodosAll.length == 0) {
+            checker();
+          }
+          setLocalStorage(TodosAll);
+          return TodosAll.filter((item) => item != itemData);
         });
     }
   });
 };
 
-let todoItems = [];
-
-const getItemsFilter = function (type) {
-  let filterItems = [];
-  console.log(type);
-  switch (type) {
-    case "todo":
-      filterItems = todoItems.filter((item) => !item.isDone);
-      break;
-    case "done":
-      filterItems = todoItems.filter((item) => item.isDone);
-      break;
-    default:
-      filterItems = todoItems;
-  }
-  getList(filterItems);
-};
 
 const removeItem = function (item) {
-  const removeIndex = todoItems.indexOf(item);
-  todoItems.splice(removeIndex, 1);
+  const removeIndex = TodosAll.indexOf(item);
+  TodosAll.splice(removeIndex, 1);
 };
 
+function checker() {
 
-const getList = function (todoItems) {
+  itemList.insertAdjacentHTML(
+    "beforeend",
+    `<li class=" list-group-item d-flex justify-content-between align-items-center">
+      No Items....
+    </li>`
+  )
+}
+
+const getList = function (TodosAll) {
   itemList.innerHTML = "";
-  if (todoItems.length > 0) {
-    todoItems.forEach((item) => {
+  if (TodosAll.length > 0) {
+    TodosAll.forEach((item) => {
       const iconClass = item.isDone;
       itemList.insertAdjacentHTML(
         "beforeend",
@@ -65,27 +61,22 @@ const getList = function (todoItems) {
       handleItem(item);
     });
   } else {
-    itemList.insertAdjacentHTML(
-      "beforeend",
-      `<li class="list-group-item d-flex justify-content-between align-items-center">
-        No Items.
-      </li>`
-    );
+    checker();
   }
 };
 
 const getLocalStorage = function () {
-  const todoStorage = localStorage.getItem("todoItems");
+  const todoStorage = localStorage.getItem("TodosAll");
   if (todoStorage == "undefined" || todoStorage == null) {
-    todoItems = [];
+    TodosAll = [];
   } else {
-    todoItems = JSON.parse(todoStorage);
+    TodosAll = JSON.parse(todoStorage);
   }
-  getList(todoItems);
+  getList(TodosAll);
 };
 
-const setLocalStorage = function (todoItems) {
-  localStorage.setItem("todoItems", JSON.stringify(todoItems));
+const setLocalStorage = function (TodosAll) {
+  localStorage.setItem("TodosAll", JSON.stringify(TodosAll));
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -105,28 +96,15 @@ document.addEventListener("DOMContentLoaded", () => {
           isDone: false,
           addedAt: new Date().getTime(),
         };
-        todoItems.push(itemObj);
-        setLocalStorage(todoItems);
+        TodosAll.push(itemObj);
+        setLocalStorage(TodosAll);
       }
 
-      getList(todoItems);
+      getList(TodosAll);
     }
-    console.log(todoItems);
+    console.log(TodosAll);
     itemInput.value = "";
   });
-
-  filters.forEach((tab) => {
-    tab.addEventListener("click", function (e) {
-      e.preventDefault();
-      const tabType = this.getAttribute("data-type");
-      document.querySelectorAll(".nav-link").forEach((nav) => {
-        nav.classList.remove("active");
-      });
-      this.firstElementChild.classList.add("active");
-      document.querySelector("#filterType").value = tabType;
-      getItemsFilter(tabType);
-    });
-  });
-
+  
   getLocalStorage();
 });

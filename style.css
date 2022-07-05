@@ -1,17 +1,14 @@
+.scrbox {
+    border: 1px solid rgb(238, 217, 217);
+    border-left: 0;
+    border-right: 0;
+    height: 400px;
+    width: 720px;
+    overflow-y: auto;
+}
+
 .black {
     color: rgb(0, 0, 0);
-}
-
-#itemList {
-    font-size: 1.5rem;
-}
-
-.show {
-    display: block;
-}
-
-.hide {
-    display: none;
 }
 
 body::before {
@@ -27,11 +24,14 @@ body::before {
     z-index: -1;
 }
 
-.scrbox {
-    border: 1px solid rgb(238, 217, 217);
-    border-left: 0;
-    border-right: 0;
-    height: 400px;
-    width: 720px;
-    overflow-y: auto;
+#itemList {
+    font-size: 1.5rem;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
 }
